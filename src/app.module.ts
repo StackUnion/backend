@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
-import { QuantsModule } from './modules/quants/quants.module';
+import { IonsModule } from 'modules/ions/ions.module'
 
 @Module({
   imports: [
@@ -9,8 +9,8 @@ import { QuantsModule } from './modules/quants/quants.module';
       envFilePath: '.env.local',
       cache: true,
     }),
-    MongooseModule.forRoot(process.env.DB_URI),
-    QuantsModule,
+    MongooseModule.forRoot(process.env.DB_URI, { dbName: 'stackunion' }),
+    IonsModule,
   ],
   controllers: [],
   providers: [],
