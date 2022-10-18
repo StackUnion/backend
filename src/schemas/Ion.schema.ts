@@ -2,6 +2,7 @@ import { Model, Schema as S } from 'mongoose'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { User } from 'schemas/user.schema'
 import { Localized, LocalizedSchema } from 'schemas/Localized.schema'
+import { CodeEmbed, CodeEmbedSchema } from 'schemas/CodeEmbed.schema'
 
 @Schema()
 export class Ion {
@@ -20,8 +21,11 @@ export class Ion {
   @Prop({ type: [LocalizedSchema] })
   content: Localized[]
 
-  @Prop([String])
+  @Prop({ required: true, type: [String], default: [] })
   keywords: string[]
+
+  @Prop({ type: [CodeEmbedSchema] })
+  embeds: CodeEmbed[]
 }
 
 export type IonDocument = Ion & Document

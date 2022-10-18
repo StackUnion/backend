@@ -4,7 +4,7 @@ import { IonsService } from 'modules/ions/ions.service'
 import { Response as Res } from 'express'
 import { SearchQueryDto } from 'dto/SearchQuery.dto'
 
-@Controller('quants')
+@Controller('ions')
 export class IonsController {
   constructor(private readonly ionsService: IonsService) {}
 

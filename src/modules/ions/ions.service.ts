@@ -9,19 +9,24 @@ export class IonsService {
   constructor(@InjectModel(Ion.name) private ionModel: IonModel) {}
 
   async search(params: SearchDto) {
+    const [, keywordset, nextQuery] = params?.q?.match(/^keywords:(\S+)\s?(.*)/) ?? []
+
+    const findPath = ['content.value', 'title.value', 'keywords']
+
     const searchOptions = {
       text: {
-        path: ['content.value', 'title.value', 'keywords'],
-        query: params.q,
+        path: findPath,
+        query: nextQuery?.length > 0 ? nextQuery : params.q,
         fuzzy: {
           maxEdits: 2,
         },
       },
-      highlight: { path: ['content.value', 'title.value', 'keywords'] },
+      highlight: { path: findPath },
     }
+
     const createQuery = () => {
       const query = this.ionModel.aggregate()
-      if (params.q) query.search(searchOptions)
+      if ((params.q && !keywordset) || nextQuery?.length > 0) query.search(searchOptions)
       return query
     }
     const count = (<unknown>await createQuery().count('count').exec())?.[0]?.count ?? 0
@@ -39,6 +44,7 @@ export class IonsService {
         highlights: { $meta: 'searchHighlights' },
       })
     if (params.sort) query.sort(params.sort)
+    if (keywordset) query.match({ keywords: { $all: keywordset.trim().split(',') } })
     return {
       count,
       items: (await query.exec()) as IonDocument[],
@@ -56,6 +62,9 @@ export class IonsService {
             autocomplete: {
               path: 'title.value',
               query: params.q,
+              fuzzy: {
+                maxEdits: 2,
+              },
             },
           },
         },
@@ -68,5 +77,9 @@ export class IonsService {
         score: { $meta: 'searchScore' },
       })
       .exec()
+  }
+
+  async getById(uid: string) {
+    return this.ionModel.findOne({ uid })
   }
 }
