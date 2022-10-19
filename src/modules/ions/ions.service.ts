@@ -9,7 +9,7 @@ export class IonsService {
   constructor(@InjectModel(Ion.name) private ionModel: IonModel) {}
 
   async search(params: SearchDto) {
-    const [, keywordset, nextQuery] = params?.q?.match(/^keywords:(\S+)\s?(.*)/) ?? []
+    const [, ktype, keywordset, nextQuery] = params?.q?.match(/^keywords([:=])(\S+)\s?(.*)/) ?? []
 
     const findPath = ['content.value', 'title.value', 'keywords']
 
@@ -44,7 +44,10 @@ export class IonsService {
         highlights: { $meta: 'searchHighlights' },
       })
     if (params.sort) query.sort(params.sort)
-    if (keywordset) query.match({ keywords: { $all: keywordset.trim().split(',') } })
+    if (keywordset) {
+      const keywords = keywordset.trim().split(',')
+      query.match({ keywords: ktype === '=' ? { $all: keywords } : { $in: keywords } })
+    }
     return {
       count,
       items: (await query.exec()) as IonDocument[],
