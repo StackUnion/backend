@@ -1,5 +1,5 @@
 import { Controller, Get, HttpException, Param } from '@nestjs/common'
-import { IonsService } from 'modules/ions/ions.service'
+import { IonsService } from './ions.service'
 
 @Controller('ion')
 export class IonController {

@@ -1,3 +1,3 @@
-import { SearchQueryDto } from 'dto/SearchQuery.dto'
+import { SearchQueryDto } from './SearchQuery.dto'
 
 export class AutocompleteDto extends SearchQueryDto {}

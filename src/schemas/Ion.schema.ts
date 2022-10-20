@@ -1,8 +1,8 @@
 import { Model, Schema as S } from 'mongoose'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { User } from 'schemas/user.schema'
-import { Localized, LocalizedSchema } from 'schemas/Localized.schema'
-import { CodeEmbed, CodeEmbedSchema } from 'schemas/CodeEmbed.schema'
+import { User } from './user.schema'
+import { Localized, LocalizedSchema } from './Localized.schema'
+import { CodeEmbed, CodeEmbedSchema } from './CodeEmbed.schema'
 
 @Schema()
 export class Ion {

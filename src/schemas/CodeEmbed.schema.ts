@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { CodeTab, CodeTabSchema } from 'schemas/CodeTab.schema'
+import { CodeTab, CodeTabSchema } from './CodeTab.schema'
 
 @Schema()
 export class CodeEmbed {

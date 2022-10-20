@@ -1,8 +1,8 @@
 import { Controller, Get, Query, Response } from '@nestjs/common'
-import { SearchDto } from 'dto/Search.dto'
-import { IonsService } from 'modules/ions/ions.service'
+import { SearchDto } from '../../dto/Search.dto'
+import { IonsService } from './ions.service'
 import { Response as Res } from 'express'
-import { SearchQueryDto } from 'dto/SearchQuery.dto'
+import { SearchQueryDto } from '../../dto/SearchQuery.dto'
 
 @Controller('ions')
 export class IonsController {
