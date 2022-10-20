@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { SearchDto } from '../../dto/Search.dto'
 import { InjectModel } from '@nestjs/mongoose'
-import { Ion, IonDocument, IonModel } from '../../schemas/ion.schema'
+import { Ion, IonDocument, IonModel } from '../../schemas/Ion.schema'
 import { SearchQueryDto } from '../../dto/SearchQuery.dto'
 
 @Injectable()

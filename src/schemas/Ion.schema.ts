@@ -1,6 +1,6 @@
 import { Model, Schema as S } from 'mongoose'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { User } from './user.schema'
+import { User } from './User.schema'
 import { Localized, LocalizedSchema } from './Localized.schema'
 import { CodeEmbed, CodeEmbedSchema } from './CodeEmbed.schema'
 
