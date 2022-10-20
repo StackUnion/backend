@@ -41,6 +41,7 @@ export class IonsService {
         createdAt: 1,
         content: 1,
         keywords: 1,
+        author: 1,
         highlights: { $meta: 'searchHighlights' },
       })
     if (params.sort) query.sort(params.sort)
@@ -50,7 +51,10 @@ export class IonsService {
     }
     return {
       count,
-      items: (await query.exec()) as IonDocument[],
+      items: (await this.ionModel.populate(await query.exec(), {
+        path: 'author',
+        select: 'uid nid display createdAt -_id',
+      })) as IonDocument[],
     }
   }
 
