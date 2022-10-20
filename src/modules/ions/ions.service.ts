@@ -53,7 +53,7 @@ export class IonsService {
       count,
       items: (await this.ionModel.populate(await query.exec(), {
         path: 'author',
-        select: 'uid nid display createdAt -_id',
+        select: '-_id',
       })) as IonDocument[],
     }
   }
@@ -87,6 +87,6 @@ export class IonsService {
   }
 
   async getById(uid: string) {
-    return this.ionModel.findOne({ uid })
+    return this.ionModel.findOne({ uid }).populate('author', '-_id')
   }
 }
