@@ -18,4 +18,9 @@ export class IonsController {
   async autocomplete(@Query() query: SearchQueryDto) {
     return this.ionsService.autocomplete(query)
   }
+
+  @Get('map')
+  async map() {
+    return this.ionsService.getAllids()
+  }
 }

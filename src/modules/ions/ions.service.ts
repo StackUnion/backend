@@ -89,4 +89,8 @@ export class IonsService {
   async getById(uid: string) {
     return this.ionModel.findOne({ uid }).populate('author', '-_id')
   }
+
+  async getAllids() {
+    return this.ionModel.find({}).then(v => v.map(i => i.uid))
+  }
 }
